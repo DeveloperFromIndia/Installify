@@ -1,0 +1,27 @@
+{
+  "name": "installify",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "bun --watch index.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/node": "^24.6.0",
+    "@types/sqlite3": "^5.1.0",
+    "dotenv": "^17.2.2"
+  },
+  "peerDependencies": {
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "grammy": "^1.38.2",
+    "sequelize": "^6.37.7",
+    "sqlite3": "^5.1.7",
+    "uuid": "^13.0.0",
+    "ytdlp-nodejs": "^2.3.4"
+  },
+  "trustedDependencies": [
+    "ytdlp-nodejs"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",          // базовый путь — корень проекта
+    "paths": {
+      "@/*": ["src/*"]       // алиас @/ → src/
+    },
+    "outDir": "dist"          // куда компилировать
+  },
+  "include": ["src", "index.ts"],  // включаем весь src + корневой index.ts
+  "exclude": ["node_modules"]
+}

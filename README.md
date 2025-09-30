@@ -1,15 +1,10 @@
 # installify
 
-To install dependencies:
+## How to deploy backend
+Fill `.env` file
 
-```bash
+To build
+```
 bun install
+bun run build
 ```
-
-To run:
-
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.1.24. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
