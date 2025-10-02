@@ -8,7 +8,9 @@ import setupModels from "@/database/relation";
         await sequelize.sync({ alter: true });
         setupModels();
         const bot = setupBot();
-        await bot.start().then(() => console.log("</ Bot launched successfully >"));
+        bot.start()
+         
+        console.log("</ Bot launched successfully >");
     } catch (error) {
         console.error(error);
     }

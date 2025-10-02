@@ -1,4 +1,4 @@
-import { createWriteStream, unlink } from "fs";
+import { createWriteStream, existsSync, mkdirSync, unlink } from "fs";
 import { join } from "path";
 import { YtDlp } from "ytdlp-nodejs";
 
@@ -27,7 +27,11 @@ class InstallService {
     async save(url: string, format: any) {
         const name = crypto.randomUUID();
         // Donwload video
-        const tmpFile = join(process.cwd(), "temp", `${name}.mp4`);
+        const tempFolder = join(process.cwd(), "temp");
+        const tmpFile = join(tempFolder, `${name}.mp4`);
+        if (!existsSync(tempFolder)) {
+            mkdirSync(tempFolder);
+        }
         const st = createWriteStream(tmpFile);
 
         const ytdlpPipe = ytdlp.stream(url, {
