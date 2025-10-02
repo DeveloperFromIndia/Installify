@@ -1,3 +1,4 @@
+import 'dotenv/config'; 
 import setupBot from "@/bot/index.ts";
 import sequelize from "@/database/config.ts";
 import setupModels from "@/database/relation";
@@ -9,7 +10,7 @@ import setupModels from "@/database/relation";
         setupModels();
         const bot = setupBot();
         bot.start()
-         
+
         console.log("</ Bot launched successfully >");
     } catch (error) {
         console.error(error);

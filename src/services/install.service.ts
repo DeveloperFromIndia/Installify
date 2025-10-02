@@ -1,8 +1,10 @@
 import { createWriteStream, existsSync, mkdirSync, unlink } from "fs";
-import { join } from "path";
+import path, { join } from "path";
 import { YtDlp } from "ytdlp-nodejs";
 
-const ytdlp = new YtDlp();
+const ytdlp = new YtDlp({
+    binaryPath: path.resolve(__dirname, "node_modules/ytdlp-nodejs/bin/yt-dlp")
+});
 
 class InstallService {
     async getInfo(link: string): Promise<any> {
