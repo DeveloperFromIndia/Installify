@@ -27,13 +27,14 @@ class InstallService {
         }
     }
     async save(url: string, format: any) {
-        const name = crypto.randomUUID();
-        // Donwload video
         const tempFolder = join(process.cwd(), "temp");
-        const tmpFile = join(tempFolder, `${name}.mp4`);
+
         if (!existsSync(tempFolder)) {
-            mkdirSync(tempFolder);
+            mkdirSync(tempFolder, { recursive: true });
         }
+
+        const name = crypto.randomUUID();
+        const tmpFile = join(tempFolder, `${name}.mp4`);
         const st = createWriteStream(tmpFile);
 
         const ytdlpPipe = ytdlp.stream(url, {
