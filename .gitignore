@@ -1,5 +1,9 @@
 # Based on https://raw.githubusercontent.com/github/gitignore/main/Node.gitignore
 
+# temp folder for video
+/temp/*
+!/temp/.gitkeep
+
 # Logs
 
 logs
