@@ -3,7 +3,7 @@ import path, { join } from "path";
 import { YtDlp } from "ytdlp-nodejs";
 
 const ytdlp = new YtDlp({
-    binaryPath: path.resolve(__dirname, "node_modules/ytdlp-nodejs/bin/yt-dlp")
+    binaryPath: path.resolve(process.cwd(), "node_modules/ytdlp-nodejs/bin/yt-dlp.exe")
 });
 
 class InstallService {
