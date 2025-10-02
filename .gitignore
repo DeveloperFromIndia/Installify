@@ -3,7 +3,7 @@
 # temp folder for video
 /temp/*
 !/temp/.gitkeep
-
+/**/*.sqlite
 # Logs
 
 logs
