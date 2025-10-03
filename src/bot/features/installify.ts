@@ -7,11 +7,21 @@ export const setupInstallify = (bot: Bot<Context>) => {
     bot.on("message:text", async (ctx) => {
         const link = ctx.message.text;
 
+        if (!link.includes("https://")) {
+            return; 
+        }
+
+        const msg = await ctx.reply("🔍 Looking for the best format");
+
         const info = await installService.getFormat(link);
         if (!info)
             return await ctx.reply("Video not found");
 
-        const msg = await ctx.reply("⏳ Saving video");
+        await ctx.api.editMessageText(
+            msg.chat.id,
+            msg.message_id,
+            "🚛 Saving"
+        );
 
         switch (info.type) {
             case 'progressive':
