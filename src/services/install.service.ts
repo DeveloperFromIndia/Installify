@@ -2,7 +2,7 @@ import YtDlpWrapper from "@/utils/wrapper";
 import { createWriteStream, existsSync, mkdirSync, unlink, unlinkSync } from "fs";
 import path, { join } from "path";
 import { YtDlp } from "ytdlp-nodejs";
-
+import crypto from "crypto";
 
 const cookieFile = join(process.cwd(), "cookies.txt");
 const options: any = {
