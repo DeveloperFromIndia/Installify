@@ -1,9 +1,22 @@
+import YtDlpWrapper from "@/utils/wrapper";
 import { createWriteStream, existsSync, mkdirSync, unlink, unlinkSync } from "fs";
 import path, { join } from "path";
 import { YtDlp } from "ytdlp-nodejs";
 
-const ytdlp = new YtDlp({
-    binaryPath: path.resolve(process.cwd(), "node_modules/ytdlp-nodejs/bin/yt-dlp.exe")
+
+const cookieFile = join(process.cwd(), "cookies.txt");
+const options: any = {
+    userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+};
+if (existsSync(cookieFile)) {
+    options.cookies = cookieFile;
+}
+
+const ytdlp = new YtDlpWrapper(new YtDlp({
+    binaryPath: path.resolve(process.cwd(), "node_modules/ytdlp-nodejs/bin/yt-dlp")
+}), {
+    cookies: "cookies.txt",
+    userAgent: "Mozilla/5.0 ..."
 });
 
 class InstallService {
@@ -54,7 +67,7 @@ class InstallService {
         const name = crypto.randomUUID();
         const tmpFile = join(tempFolder, `${name}.mp4`);
         const st = createWriteStream(tmpFile);
-        console.log(format.format_id);
+        
         const ytdlpPipe = ytdlp.stream(url, {
             format: format.format_id,
             // onProgress: (progress) => {
@@ -85,9 +98,6 @@ class InstallService {
 
         await ytdlp.execAsync(
             `ffmpeg -y -i "${videoFile}" -i "${audioFile}" -c copy "${outputFile}"`,
-            {
-                onData: (d) => console.log(d),
-            }
         );
 
         try {
