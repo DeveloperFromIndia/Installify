@@ -3,28 +3,43 @@ import { Bot, Context, InputFile } from "grammy";
 
 const MAX_SIZE = 50 * 1024 * 1024;
 
-
 export const setupInstallify = (bot: Bot<Context>) => {
     bot.on("message:text", async (ctx) => {
         const link = ctx.message.text;
 
-        const info = await installService.getInfo(link);
-        if (!info) {
-            if (ctx.chat.type === "private")
-                return await ctx.reply("not found");
-            return;
+        const info = await installService.getFormat(link);
+        if (!info)
+            return await ctx.reply("Video not found");
+
+        switch (info.type) {
+            case 'progressive':
+                let sizeP = info.format.filesize ?? info.format.filesize_approx ?? 0;
+                if (sizeP > MAX_SIZE)
+                    return;
+
+                const sourceP = await installService.save(link, info.format);
+                const videoFileP = new InputFile(sourceP);
+                await bot.api.sendVideo(ctx.chat.id, videoFileP);
+                await installService.remove(sourceP);
+                return;
+            case 'dash':
+                const videoSize = info.video.filesize ?? info.video.filesize_approx ?? 0;
+                const audioSize = info.audio.filesize ?? info.audio.filesize_approx ?? 0;
+
+                let sizeD = videoSize + audioSize;
+                if (sizeD > MAX_SIZE)
+                    return;
+
+                const sourceD = await installService.saveDash(
+                    { url: info.video.url, format: info.video.format },    // video
+                    { url: info.audio.url, format: info.audio.format }     // audio
+                );
+                
+                const videoFileD = new InputFile(sourceD);
+                await bot.api.sendVideo(ctx.chat.id, videoFileD);
+                await installService.remove(sourceD);
+                break;
         }
 
-        // BBW middleware XD
-        const size = info.format[0].filesize ?? info.format[0].filesize_approx ?? 0;
-        if (size > MAX_SIZE) {
-            return;
-        }
-
-        // format[0] - hardcode
-        const source = await installService.save(link, info.format[0]);
-        const videoFile = new InputFile(source);
-        await bot.api.sendVideo(ctx.chat.id, videoFile);
-        await installService.remove(source);
     });
 };
