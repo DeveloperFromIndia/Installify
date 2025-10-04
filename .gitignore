@@ -4,6 +4,7 @@
 /temp/*
 !/temp/.gitkeep
 /**/*.sqlite
+/*.txt
 # Logs
 
 logs
