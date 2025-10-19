@@ -13,7 +13,7 @@ if (existsSync(cookieFile)) {
 }
 
 const ytdlp = new YtDlpWrapper(new YtDlp({
-    binaryPath: path.resolve(process.cwd(), "node_modules/ytdlp-nodejs/bin/yt-dlp")
+    binaryPath: path.resolve(process.cwd(), "node_modules/ytdlp-nodejs/bin/yt-dlp.exe")
 }), {
     cookies: "cookies.txt",
     userAgent: "Mozilla/5.0 ..."

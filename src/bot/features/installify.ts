@@ -1,3 +1,4 @@
+import whitelistMiddleware from "@/middleware/whitelist.middleware";
 import installService from "@/services/install.service";
 import queue from "@/utils/pq";
 import { Bot, Context, InputFile } from "grammy";
@@ -5,7 +6,7 @@ import { Bot, Context, InputFile } from "grammy";
 const MAX_SIZE = 50 * 1024 * 1024;
 
 export const setupInstallify = (bot: Bot<Context>) => {
-    bot.on("message:text", async (ctx) => {
+    bot.on("message:text", whitelistMiddleware, async (ctx) => {
         const link = ctx.message.text;
 
         if (!link.includes("https://")) {
