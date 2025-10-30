@@ -4,13 +4,23 @@ const whiteList: string[] = [
 ];
 
 const whitelistMiddleware = async (ctx: any, next: any) => {
-    const url = ctx.message.text;
+    const url = ctx.message?.text;
+    if (!url) return;
+
     const isAllowed = whiteList.some(item => url.includes(item));
+    console.log(url);
     if (isAllowed) {
         if (url.includes("instagram")) {
-            await ctx.reply("Билл Гейст пидорас!");
-            return; 
+            const cleanUrl = url.split("?")[0];
+            const msg = `@${ctx.message.from.username}\n${cleanUrl}`;
+            await ctx.api.sendMessage(ctx.chat.id, msg, {
+                disable_web_page_preview: true,
+            });
+            await ctx.api.deleteMessage(ctx.chat.id, ctx.message.message_id);
+
+            return;
         }
+
         return next();
     }
 
@@ -18,3 +28,6 @@ const whitelistMiddleware = async (ctx: any, next: any) => {
 };
 
 export default whitelistMiddleware;
+
+
+
