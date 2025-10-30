@@ -25,7 +25,7 @@
     "sequelize": "^6.37.7",
     "sqlite3": "^5.1.7",
     "uuid": "^13.0.0",
-    "ytdlp-nodejs": "^2.3.4"
+    "ytdlp-nodejs": "^2.3.5"
   },
   "trustedDependencies": [
     "better-sqlite3",
