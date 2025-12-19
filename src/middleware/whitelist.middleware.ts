@@ -8,18 +8,18 @@ const whitelistMiddleware = async (ctx: any, next: any) => {
     if (!url) return;
 
     const isAllowed = whiteList.some(item => url.includes(item));
-    console.log(url);
+    // console.log(url);
     if (isAllowed) {
-        if (url.includes("instagram")) {
-            const cleanUrl = url.split("?")[0];
-            const msg = `@${ctx.message.from.username}\n${cleanUrl}`;
-            await ctx.api.sendMessage(ctx.chat.id, msg, {
-                disable_web_page_preview: true,
-            });
-            await ctx.api.deleteMessage(ctx.chat.id, ctx.message.message_id);
+        // if (url.includes("instagram")) {
+        //     const cleanUrl = url.split("?")[0];
+        //     const msg = `@${ctx.message.from.username}\n${cleanUrl}`;
+        //     await ctx.api.sendMessage(ctx.chat.id, msg, {
+        //         disable_web_page_preview: true,
+        //     });
+        //     await ctx.api.deleteMessage(ctx.chat.id, ctx.message.message_id);
 
-            return;
-        }
+        //     return;
+        // }
 
         return next();
     }
