@@ -5,6 +5,7 @@ const whiteList: string[] = [
 
 const whitelistMiddleware = async (ctx: any, next: any) => {
     const url = ctx.message?.text;
+    console.log(ctx.chat.id);
     if (!url) return;
 
     const isAllowed = whiteList.some(item => url.includes(item));

@@ -7,7 +7,6 @@ const MAX_SIZE = 50 * 1024 * 1024;
 
 export const setupInstallify = (bot: Bot<Context>) => {
     bot.on("message:text", whitelistMiddleware, async (ctx) => {
-        console.log(ctx.chat.id);
         const link = ctx.message.text;
 
         if (!link.includes("https://")) {
