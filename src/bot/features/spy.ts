@@ -1,0 +1,16 @@
+const SOURCE_CHAT = -1001754314208;
+const TARGET_CHAT = -1003599464395;
+
+import { transferMessageToAnotherChat } from "@/utils/message";
+import type { Bot, Context } from "grammy";
+
+
+
+export const spy = (bot: Bot<Context>) => {
+    bot.on("message", async (ctx) => {
+        if (ctx.chat.id !== SOURCE_CHAT) return;
+        if (ctx.from?.is_bot) return;
+
+        await transferMessageToAnotherChat(TARGET_CHAT, ctx);
+    });
+};
