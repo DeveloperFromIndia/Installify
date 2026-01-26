@@ -1,4 +1,5 @@
-const SOURCE_CHAT = -1001754314208;
+// const SOURCE_CHAT = -1001754314208;
+const SOURCE_CHAT = -1003835036908;
 const TARGET_CHAT = -1003599464395;
 
 import { transferMessageToAnotherChat } from "@/utils/message";
