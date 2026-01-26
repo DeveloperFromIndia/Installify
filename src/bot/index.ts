@@ -9,9 +9,9 @@ const bot = process.env.BOT_TOKEN ? new Bot(process.env.BOT_TOKEN) : null;
         if (!bot)
             throw console.error("Token not found");
         
+        spy(bot);
         setupStart(bot);
         setupInstallify(bot);
-        spy(bot);
         
     } catch (error) {
         console.error(error);
